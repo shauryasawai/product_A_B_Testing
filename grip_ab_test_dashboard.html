@@ -1,0 +1,757 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap');
+:root{--navy:#12275C;--navy-light:#1E3A7A;--navy-dark:#0B1A42;--teal:#00C9A7;--teal-dark:#00A589;--teal-light:#E0FAF4;--bg:#F0F3FA;--card:#FFFFFF;--text:#12275C;--text-mid:#4A5C85;--text-soft:#8A98B8;--border:#DDE4F0;--red:#E53935;--red-light:#FDECEA;--amber:#F59E0B;--amber-light:#FEF3C7;--green:#10B981;--green-light:#ECFDF5;--blue:#3B82F6;--blue-light:#EFF6FF;--shadow:0 1px 3px rgba(18,39,92,.06),0 4px 16px rgba(18,39,92,.08);}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;font-size:14px;}
+.serif{font-family:'DM Serif Display',Georgia,serif;}
+
+/* HEADER */
+.header{background:var(--navy-dark);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.25);}
+.header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;}
+.logo-grip{font-family:'DM Serif Display',Georgia,serif;font-size:22px;color:#fff;letter-spacing:.5px;}
+.logo-grip span{font-style:italic;color:var(--teal);}
+.logo-tagline{font-size:12px;color:rgba(255,255,255,.6);margin-left:12px;}
+.header-badge{background:rgba(0,201,167,.15);border:1px solid rgba(0,201,167,.3);color:var(--teal);font-size:11px;font-weight:600;letter-spacing:.06em;padding:4px 10px;border-radius:20px;text-transform:uppercase;}
+
+/* NAV */
+.nav{background:var(--navy);border-bottom:1px solid rgba(255,255,255,.08);}
+.nav-inner{max-width:1280px;margin:0 auto;display:flex;padding:0 2rem;overflow-x:auto;gap:0;}
+.nav-link{display:flex;align-items:center;gap:7px;padding:12px 16px;font-size:12px;font-weight:500;color:rgba(255,255,255,.55);text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;cursor:pointer;transition:all .2s;}
+.nav-link:hover,.nav-link.active{color:var(--teal);border-bottom-color:var(--teal);}
+.nav-dot{width:6px;height:6px;border-radius:50%;}
+
+/* MAIN */
+.main{max-width:1280px;margin:0 auto;padding:2rem;}
+.section{margin-bottom:3rem;}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-soft);margin-bottom:4px;}
+.section-title{font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:var(--text);line-height:1.2;margin-bottom:6px;}
+.section-sub{font-size:13px;color:var(--text-mid);}
+
+/* HERO BANNER */
+.hero{background:linear-gradient(135deg,#0B1A42 0%,#12275C 60%,#1a3870 100%);border-radius:16px;padding:2rem 2.5rem;margin-bottom:2.5rem;border:1px solid rgba(0,201,167,.2);position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:0;right:0;width:350px;height:100%;background:radial-gradient(ellipse at top right,rgba(0,201,167,.15) 0%,transparent 70%);pointer-events:none;}
+.hero-kicker{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem;}
+.hero-title{font-family:'DM Serif Display',Georgia,serif;font-size:28px;color:#fff;margin-bottom:.75rem;line-height:1.2;}
+.hero-desc{font-size:13px;color:rgba(255,255,255,.7);line-height:1.7;max-width:700px;margin-bottom:1.5rem;}
+.hero-pills{display:flex;flex-wrap:wrap;gap:.5rem;}
+.hero-pill{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.8);}
+.hero-pill span{color:var(--teal);font-weight:700;}
+
+/* KPI ROW */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+.kpi-card{background:var(--card);border-radius:14px;padding:1.25rem 1.5rem;box-shadow:var(--shadow);border:1px solid var(--border);position:relative;overflow:hidden;}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;border-radius:3px 0 0 3px;}
+.kpi-card.c-red::after{background:var(--red);}
+.kpi-card.c-teal::after{background:var(--teal);}
+.kpi-card.c-amber::after{background:var(--amber);}
+.kpi-card.c-navy::after{background:var(--navy);}
+.kpi-label{font-size:11px;font-weight:600;color:var(--text-soft);text-transform:uppercase;letter-spacing:.07em;margin-bottom:.5rem;}
+.kpi-val{font-family:'DM Serif Display',Georgia,serif;font-size:30px;line-height:1;margin-bottom:.3rem;}
+.kpi-val.red{color:var(--red);}
+.kpi-val.teal{color:var(--teal-dark);}
+.kpi-val.amber{color:var(--amber);}
+.kpi-val.navy{color:var(--navy);}
+.kpi-sub{font-size:12px;color:var(--text-mid);}
+
+/* CARDS */
+.card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);border:1px solid var(--border);overflow:hidden;}
+.card-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.card-title{font-size:14px;font-weight:600;color:var(--text);}
+.card-sub{font-size:11px;color:var(--text-soft);}
+.card-body{padding:1.5rem;}
+
+/* GRIDS */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.25rem;}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:1.25rem;}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:1.25rem;}
+
+/* PILL BADGES */
+.pill{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;}
+.pill.red{background:var(--red-light);color:var(--red);}
+.pill.green{background:var(--green-light);color:var(--green);}
+.pill.amber{background:var(--amber-light);color:#92400E;}
+.pill.blue{background:var(--blue-light);color:var(--blue);}
+.pill.navy{background:rgba(18,39,92,.08);color:var(--navy);}
+.pill.teal{background:var(--teal-light);color:var(--teal-dark);}
+
+/* DATA TABLE */
+.dtable{width:100%;border-collapse:collapse;font-size:13px;}
+.dtable th{padding:10px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-soft);background:#F8FAFF;border-bottom:1px solid var(--border);text-align:left;}
+.dtable td{padding:11px 14px;border-bottom:.5px solid var(--border);color:var(--text);vertical-align:middle;}
+.dtable tr:last-child td{border-bottom:none;}
+.dtable tr.hi-b td{background:#F0FDF9;font-weight:500;}
+
+/* STEP BLOCKS */
+.steps{display:flex;flex-direction:column;gap:0;}
+.step{display:flex;gap:14px;}
+.step-left{display:flex;flex-direction:column;align-items:center;}
+.step-circle{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.step-line{width:2px;flex:1;min-height:16px;background:var(--border);}
+.step-body{padding-bottom:1.25rem;flex:1;}
+.step-q{font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;}
+.step-a{font-size:12px;color:var(--text-mid);line-height:1.65;background:#F8FAFF;border-radius:8px;padding:.65rem 1rem;border-left:3px solid var(--border);}
+
+/* CALLOUT */
+.callout{border-radius:10px;padding:.9rem 1.1rem;display:flex;gap:10px;align-items:flex-start;margin-top:.75rem;}
+.callout.info{background:var(--blue-light);border:1px solid #BFDBFE;}
+.callout.warn{background:var(--amber-light);border:1px solid #FCD34D;}
+.callout.success{background:var(--green-light);border:1px solid #A7F3D0;}
+.callout.danger{background:var(--red-light);border:1px solid #FBBCBC;}
+.callout-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.callout-body{font-size:12px;line-height:1.65;color:var(--text);}
+.callout-body strong{font-weight:600;}
+
+/* MATH BOX */
+.math-box{background:#F8FAFF;border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;font-family:'DM Sans',monospace;font-size:13px;line-height:2;margin:12px 0;}
+.math-line{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:4px;border-bottom:.5px solid var(--border);padding:2px 0;}
+.math-line:last-child{border-bottom:none;}
+.math-label{color:var(--text-soft);font-size:11px;}
+.math-result{font-weight:700;color:var(--navy);background:var(--teal-light);padding:2px 8px;border-radius:6px;}
+
+/* GUARDRAIL ITEMS */
+.gr-list{display:flex;flex-direction:column;gap:.75rem;}
+.gr-item{display:flex;gap:12px;padding:.9rem 1rem;background:#F8FAFF;border:1px solid var(--border);border-radius:10px;align-items:flex-start;}
+.gr-num{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;background:var(--navy);color:#fff;}
+.gr-name{font-size:13px;font-weight:600;margin-bottom:3px;}
+.gr-desc{font-size:12px;color:var(--text-mid);line-height:1.55;}
+
+/* DECISION SPLIT */
+.dec-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:.75rem 0;}
+.dec-card{padding:12px 14px;border-radius:10px;border:.5px solid;}
+.dec-card.green{background:#ECFDF5;border-color:#10B981;}
+.dec-card.amber{background:var(--amber-light);border-color:var(--amber);}
+.dec-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px;}
+.dec-card.green .dec-title{color:var(--green);}
+.dec-card.amber .dec-title{color:#92400E;}
+.dec-body{font-size:12px;line-height:1.6;color:var(--text-mid);}
+
+/* VERDICT */
+.verdict{background:linear-gradient(135deg,#0B1A42,#12275C);border-radius:12px;padding:1.25rem 1.5rem;margin:1rem 0;}
+.verdict-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--teal);margin-bottom:4px;}
+.verdict-text{font-size:13px;line-height:1.7;color:rgba(255,255,255,.85);}
+.verdict-text strong{color:#fff;}
+
+/* FUNNEL VISUAL */
+.funnel-vis{display:flex;flex-direction:column;align-items:center;gap:4px;padding:1rem 0;}
+.funnel-stage-wrap{display:flex;align-items:center;width:100%;gap:12px;}
+.funnel-bar-outer{flex:1;height:36px;background:#EEF2FF;border-radius:6px;overflow:hidden;position:relative;}
+.funnel-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;padding-left:10px;font-size:12px;font-weight:600;color:#fff;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.funnel-stlabel{width:170px;font-size:12px;color:var(--text-mid);text-align:right;}
+.funnel-pct{width:90px;font-size:12px;font-weight:600;color:var(--text-soft);}
+.funnel-arrow{text-align:center;color:var(--red);font-size:12px;font-weight:600;padding:0 0 0 182px;}
+.funnel-arrow-line{width:2px;height:16px;background:var(--border);margin:0 auto 0 282px;}
+
+/* VARIANT C */
+.vc-block{background:#F8FAFF;border:1px solid var(--border);border-radius:12px;padding:1.25rem;}
+.vc-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-soft);margin-bottom:4px;}
+.vc-val{font-size:13px;line-height:1.65;margin-bottom:12px;}
+
+/* FUNNEL RETHINK */
+.fr-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.fr-card{padding:14px;background:#F8FAFF;border:1px solid var(--border);border-radius:10px;}
+.fr-stage{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--navy);margin-bottom:6px;}
+.fr-title{font-size:13px;font-weight:600;margin-bottom:5px;}
+.fr-body{font-size:12px;color:var(--text-mid);line-height:1.6;}
+
+/* ICE */
+.ice-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;}
+.ice-card{background:var(--card);border-radius:12px;box-shadow:var(--shadow);border:1px solid var(--border);padding:1.25rem;}
+.ice-card.winner{border:2px solid var(--teal);box-shadow:0 0 0 4px rgba(0,201,167,.1);}
+.ice-rank{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em;}
+.ice-rank.p1{background:var(--teal-light);color:var(--teal-dark);}
+.ice-rank.p2{background:var(--amber-light);color:#92400E;}
+.ice-rank.p3{background:#F1F5F9;color:#64748B;}
+.ice-title{font-size:13px;font-weight:600;margin-bottom:.75rem;line-height:1.4;}
+.ice-scores{display:flex;gap:6px;margin-bottom:.75rem;}
+.ice-score-box{flex:1;text-align:center;padding:.5rem .3rem;background:#F8FAFF;border-radius:8px;border:1px solid var(--border);}
+.ice-score-lbl{font-size:9px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-soft);display:block;margin-bottom:2px;}
+.ice-score-num{font-family:'DM Serif Display',Georgia,serif;font-size:20px;color:var(--text);}
+.ice-total{text-align:center;padding:.5rem;border-radius:8px;font-size:13px;font-weight:700;}
+.ice-total.t1{background:var(--teal-light);color:var(--teal-dark);}
+.ice-total.t2{background:var(--amber-light);color:#92400E;}
+.ice-total.t3{background:#F1F5F9;color:#64748B;}
+
+/* CHECKLIST */
+.checklist{display:flex;flex-direction:column;gap:8px;margin:.75rem 0;}
+.check-item{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.6;}
+.check-dot{width:7px;height:7px;border-radius:50%;margin-top:6px;flex-shrink:0;}
+
+/* FOOTER */
+.footer{background:var(--navy-dark);text-align:center;padding:1.25rem;font-size:12px;color:rgba(255,255,255,.45);margin-top:3rem;}
+.footer strong{color:var(--teal);}
+
+/* CHART WRAP */
+.chart-wrap{position:relative;width:100%;}
+.ch300{height:300px;}
+.ch260{height:260px;}
+.ch200{height:200px;}
+.ch180{height:180px;}
+
+/* DIVIDER */
+.divider{height:1px;background:var(--border);margin:2.5rem 0;}
+
+/* SECTION HEADER */
+.sec-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:1.5rem;}
+.sec-icon{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+
+@media(max-width:900px){
+  .kpi-grid,.g2,.g3,.g12,.g21,.fr-grid,.ice-grid{grid-template-columns:1fr;}
+  .dec-grid{grid-template-columns:1fr;}
+}
+</style>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-inner">
+    <div style="display:flex;align-items:center;gap:6px;">
+      <span class="logo-grip">GR<span>i</span>P</span>
+      <span style="color:rgba(255,255,255,.3);font-size:18px;margin:0 4px">|</span>
+      <span style="font-size:12px;color:rgba(255,255,255,.6);">BOFU Product Pod · <strong style="color:var(--teal)">A/B Test Deep-Dive</strong></span>
+    </div>
+    <span class="header-badge">Payment Screen Experiment</span>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-link active"><span class="nav-dot" style="background:#00C9A7"></span>Overview</span>
+    <span class="nav-link"><span class="nav-dot" style="background:#3B82F6"></span>Part A · Test Design</span>
+    <span class="nav-link"><span class="nav-dot" style="background:#F59E0B"></span>Part B · Results</span>
+    <span class="nav-link"><span class="nav-dot" style="background:#E53935"></span>Part C · Funnel Strategy</span>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- ═══════════ HERO ═══════════ -->
+<div class="hero">
+  <div class="hero-kicker">Product Experiment · Payment Screen</div>
+  <div class="hero-title">Can simplifying what users see before paying boost conversions?</div>
+  <div class="hero-desc">Right now, Grip shows users a full investment summary, issuer details, yield, risk rating, tax implications and right before they hit "Pay". The theory: <strong style="color:#fff">too much information at the wrong moment creates hesitation.</strong> This A/B test checks whether showing less (but keeping details accessible) makes more users complete their investment.</div>
+  <div class="hero-pills">
+    <div class="hero-pill">Platform: <span>Grip Invest</span></div>
+    <div class="hero-pill">Monthly traffic: <span>~15,000 users</span></div>
+    <div class="hero-pill">Current conversion: <span>48%</span></div>
+    <div class="hero-pill">Target lift: <span>+5pp → 53%</span></div>
+    <div class="hero-pill">Confidence level: <span>95%</span></div>
+    <div class="hero-pill">Statistical power: <span>80%</span></div>
+  </div>
+</div>
+
+<!-- ═══════════ KPI ROW ═══════════ -->
+<div class="kpi-grid">
+  <div class="kpi-card c-teal">
+    <div class="kpi-label">Variant B conversion</div>
+    <div class="kpi-val teal">52.0%</div>
+    <div class="kpi-sub">vs 48% in Control — <strong style="color:var(--green)">+4pp lift</strong></div>
+  </div>
+  <div class="kpi-card c-navy">
+    <div class="kpi-label">p-value</div>
+    <div class="kpi-val navy">0.04</div>
+    <div class="kpi-sub">Below 0.05 → <strong>statistically significant</strong></div>
+  </div>
+  <div class="kpi-card c-amber">
+    <div class="kpi-label">Extra completions / month</div>
+    <div class="kpi-val amber">+600</div>
+    <div class="kpi-sub">4pp × 15,000 users reaching payment screen</div>
+  </div>
+
+</div>
+
+<!-- ═══════════ WHAT ARE WE TESTING? ═══════════ -->
+<div class="section">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:#EFF6FF">🔬</div>
+    <div>
+      <div class="section-label">The Experiment</div>
+      <div class="section-title">What exactly are we changing?</div>
+      <div class="section-sub">Control vs Variant — a side-by-side comparison of the two payment screen designs</div>
+    </div>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">🅐 Control — Full Summary Screen</div>
+          <div class="card-sub">What users currently see before paying</div>
+        </div>
+        <span class="pill navy">Current Design</span>
+      </div>
+      <div class="card-body">
+        <div class="gr-list">
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--red-light);border-radius:8px;border:1px solid #FBBCBC;font-size:12px;"><span>📄</span><span><strong>Issuer details</strong> — who is offering the investment</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--red-light);border-radius:8px;border:1px solid #FBBCBC;font-size:12px;"><span>📈</span><span><strong>Yield & tenure</strong> — how much return, for how long</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--red-light);border-radius:8px;border:1px solid #FBBCBC;font-size:12px;"><span>⚠️</span><span><strong>Risk rating</strong> — how risky is this product</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--red-light);border-radius:8px;border:1px solid #FBBCBC;font-size:12px;"><span>🧾</span><span><strong>Tax implications</strong> — what taxes apply</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--red-light);border-radius:8px;border:1px solid #FBBCBC;font-size:12px;"><span>💸</span><span><strong>Payment CTA</strong> — the "Pay Now" button</span></div>
+        </div>
+        <div class="callout danger" style="margin-top:.85rem;">
+          <div class="callout-icon">🧠</div>
+          <div class="callout-body"><strong>Problem:</strong> By the time users reach this screen, they've already decided to invest. Showing all of this again creates information overload — and users hesitate or drop off.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="border:2px solid var(--teal);">
+      <div class="card-header" style="background:var(--teal-light);">
+        <div>
+          <div class="card-title" style="color:var(--teal-dark);">🅑 Variant — Simplified Screen</div>
+          <div class="card-sub">The proposed new design</div>
+        </div>
+        <span class="pill teal">New Design</span>
+      </div>
+      <div class="card-body">
+        <div class="gr-list">
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--green-light);border-radius:8px;border:1px solid #A7F3D0;font-size:12px;"><span>💰</span><span><strong>Investment amount</strong> — how much you're putting in</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--green-light);border-radius:8px;border:1px solid #A7F3D0;font-size:12px;"><span>🎯</span><span><strong>Expected return</strong> — how much you'll earn</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--green-light);border-radius:8px;border:1px solid #A7F3D0;font-size:12px;"><span>⬇️</span><span><strong>"View Details" section</strong> — expandable, for those who want more</span></div>
+          <div style="display:flex;gap:8px;align-items:center;padding:.6rem .9rem;background:var(--green-light);border-radius:8px;border:1px solid #A7F3D0;font-size:12px;"><span>💸</span><span><strong>Payment CTA</strong> — the "Pay Now" button (less clutter around it)</span></div>
+        </div>
+        <div class="callout success" style="margin-top:.85rem;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><strong>Hypothesis:</strong> Fewer things on screen = less cognitive load = more people clicking Pay. Full details are still one tap away — nothing is hidden, just not pushed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════ PART A: SAMPLE SIZE ═══════════ -->
+<div class="section">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:#EFF6FF">🔢</div>
+    <div>
+      <div class="section-label">Part A · Test Design</div>
+      <div class="section-title">How many users do we need? How long should we run?</div>
+      <div class="section-sub">The sample size formula ensures our result isn't just luck — it's real</div>
+    </div>
+  </div>
+
+  <div class="g21" style="margin-bottom:1.25rem;">
+    <div class="card">
+      <div class="card-header"><div class="card-title">📐 The Maths — Sample Size Formula</div></div>
+      <div class="card-body">
+        <div class="callout info" style="margin-bottom:.85rem;">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body"><strong>In plain English:</strong> We need enough users in each group so that if a real difference exists, we'll actually detect it — and not mistake random luck for a real finding.</div>
+        </div>
+        <div class="math-box">
+          <div class="math-line"><span>Formula</span><span style="font-weight:600;color:var(--navy)">n = (Z<sub>α/2</sub> + Z<sub>β</sub>)² × [p₁(1−p₁) + p₂(1−p₂)] / (p₁−p₂)²</span></div>
+          <div class="math-line"><span class="math-label">p₁ = Control conversion</span><span>0.48 (current 48%)</span></div>
+          <div class="math-line"><span class="math-label">p₂ = Variant target</span><span>0.53 (48% + 5pp MDE)</span></div>
+          <div class="math-line"><span class="math-label">Z<sub>α/2</sub> at 95% confidence</span><span>1.96</span></div>
+          <div class="math-line"><span class="math-label">Z<sub>β</sub> at 80% power</span><span>0.84 &nbsp;→&nbsp; Sum = <strong>2.80</strong>, Sum² = <strong>7.84</strong></span></div>
+          <div class="math-line"><span class="math-label">Numerator</span><span>7.84 × [0.2496 + 0.2491] = 7.84 × 0.4987 = <strong>3.910</strong></span></div>
+          <div class="math-line"><span class="math-label">Denominator</span><span>(0.05)² = <strong>0.0025</strong></span></div>
+          <div class="math-line"><span class="math-label">Result</span><span class="math-result">n = 1,564 users per variant</span></div>
+        </div>
+        <div class="callout success">
+          <div class="callout-icon">📅</div>
+          <div class="callout-body"><strong>How long to run?</strong> 15,000 users/month ÷ 30 days = ~500/day reaching payment screen. Split 50/50 = 250 per variant per day. 1,564 ÷ 250 = <strong>~6.3 days minimum.</strong> We recommend <strong>14 days</strong> to capture full weekday/weekend behaviour differences.</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:1.25rem;">
+      <div class="card">
+        <div class="card-header"><div class="card-title">⏱️ Test Timeline</div></div>
+        <div class="card-body">
+          <div class="chart-wrap ch180"><canvas id="timelineChart"></canvas></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">📊 Sample Accumulation</div></div>
+        <div class="card-body">
+          <div class="chart-wrap ch180"><canvas id="sampleChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Randomisation -->
+  <div class="g2">
+    <div class="card">
+      <div class="card-header"><div class="card-title">🎲 Randomisation — User-level or Session-level?</div></div>
+      <div class="card-body">
+        <div class="callout success" style="margin-bottom:.85rem;">
+          <div class="callout-icon">✅</div>
+          <div class="callout-body"><strong>Answer: User-level randomisation.</strong> Assign each user to Control or Variant once, and keep them there for the entire test duration.</div>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-left"><div class="step-circle" style="background:var(--navy);color:#fff">1</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <div class="step-q">Why not session-level?</div>
+              <div class="step-a">If we assigned randomly per visit, the same user could see the full summary on Monday and the simplified screen on Tuesday. That's a contaminated experiment — their behaviour is influenced by both versions, making it impossible to know which one caused a conversion.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-circle" style="background:var(--teal-dark);color:#fff">2</div><div class="step-line"></div></div>
+            <div class="step-body">
+              <div class="step-q">Investment decisions take multiple visits</div>
+              <div class="step-a">A typical Grip user might browse products on day 1, compare options on day 3, and finally pay on day 7. User-level assignment ensures they always see the same experience throughout this journey — making the test reflect real-world conditions.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-left"><div class="step-circle" style="background:var(--blue);color:#fff">3</div></div>
+            <div class="step-body">
+              <div class="step-q">How to implement</div>
+              <div class="step-a">Hash the <code>user_id</code> to deterministically assign each user to a variant on their first payment screen visit. Store the assignment in their profile so every subsequent session shows the same version.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">🛡️ Guardrail Metrics — "First, Do No Harm"</div></div>
+      <div class="card-body">
+        <div class="callout info" style="margin-bottom:.85rem;">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body"><strong>What are guardrail metrics?</strong> Safety checks that ensure improving conversion doesn't accidentally cause harm elsewhere — like pushing users to invest without understanding what they're buying.</div>
+        </div>
+        <div class="gr-list">
+          <div class="gr-item">
+            <div class="gr-num">1</div>
+            <div>
+              <div class="gr-name" style="color:var(--red)">📋 "View Details" expansion rate</div>
+              <div class="gr-desc">What % of Variant B users tapped to expand full details before paying? If this is very low, users are investing without reading — a SEBI compliance risk. <strong>Threshold: alert if below 20%.</strong></div>
+            </div>
+          </div>
+          <div class="gr-item">
+            <div class="gr-num">2</div>
+            <div>
+              <div class="gr-name" style="color:var(--amber)">🎟️ Support ticket rate (post-investment)</div>
+              <div class="gr-desc">How many users contact support with confusion about their investment within 7 days? Queries like "what is this product?" or "when can I withdraw?" signal uninformed decisions. <strong>No more than 10% relative increase vs Control.</strong></div>
+            </div>
+          </div>
+          <div class="gr-item">
+            <div class="gr-num">3</div>
+            <div>
+              <div class="gr-name" style="color:var(--navy)">🔄 30-day early withdrawal rate</div>
+              <div class="gr-desc">Are Variant B investors more likely to try exiting positions early? Regret-driven exits suggest users didn't fully understand lock-in or terms. This is a delayed but powerful signal of real harm.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════ PART B: RESULTS ═══════════ -->
+<div class="section">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:#FEF3C7">📊</div>
+    <div>
+      <div class="section-label">Part B · Test Results (3 Weeks)</div>
+      <div class="section-title">The results are in — what do they tell us?</div>
+      <div class="section-sub">Variant B improved conversion by 4pp with a p-value of 0.04. But it missed the 5pp MDE target. Now what?</div>
+    </div>
+  </div>
+
+  <!-- Results table + bar chart -->
+  <div class="g21" style="margin-bottom:1.25rem;">
+    <div class="card">
+      <div class="card-header"><div class="card-title">📈 Conversion Rate Comparison</div></div>
+      <div class="card-body">
+        <div class="chart-wrap ch260"><canvas id="convChart"></canvas></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">📋 Results Summary</div></div>
+      <div class="card-body">
+        <table class="dtable">
+          <thead><tr><th>Metric</th><th>Control A</th><th>Variant B</th></tr></thead>
+          <tbody>
+            <tr><td>Users</td><td>5,400</td><td>5,400</td></tr>
+            <tr><td>Completed payment</td><td>2,592</td><td>2,808</td></tr>
+            <tr><td>Conversion rate</td><td>48.0%</td><td><strong style="color:var(--teal-dark)">52.0%</strong></td></tr>
+            <tr><td>Lift</td><td>—</td><td><span class="pill amber">+4pp</span></td></tr>
+            <tr><td>p-value</td><td>—</td><td><span class="pill green">0.04 ✓ sig.</span></td></tr>
+            <tr class="hi-b"><td>Extra completions/mo</td><td>—</td><td><strong style="color:var(--green)">+600 users</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="callout info" style="margin-top:.85rem;">
+          <div class="callout-icon">💡</div>
+          <div class="callout-body"><strong>What does p=0.04 mean?</strong> There's only a 4% chance this result happened by random luck. We set our threshold at 5% (p&lt;0.05), so this passes. The effect is real.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Completion funnel -->
+  <div class="g2" style="margin-bottom:1.25rem;">
+    <div class="card">
+      <div class="card-header"><div class="card-title">🏁 Completion Rate Visual</div></div>
+      <div class="card-body">
+        <div class="chart-wrap ch300"><canvas id="completionChart"></canvas></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">🎯 Did we hit the MDE? Understanding the gap</div></div>
+      <div class="card-body">
+        <div class="chart-wrap ch200"><canvas id="mdeChart"></canvas></div>
+        <div class="callout warn" style="margin-top:.85rem;">
+          <div class="callout-icon">⚠️</div>
+          <div class="callout-body"><strong>MDE is not a cliff edge.</strong> The Minimum Detectable Effect (5pp) was our pre-specified "minimum we care about". Observing 4pp doesn't mean the variant is useless — it means the true effect is likely somewhere in the 2–6pp range. It's still a real, significant, business-meaningful improvement.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Decision framework -->
+  <div class="card" style="margin-bottom:1.25rem;">
+    <div class="card-header">
+      <div class="card-title">🚦 Decision Framework — Ship, Iterate, or Kill?</div>
+      <div class="card-sub">Walking through the decision systematically</div>
+    </div>
+    <div class="card-body">
+      <div class="dec-grid">
+        <div class="dec-card green">
+          <div class="dec-title">✅ Statistically significant</div>
+          <div class="dec-body">p=0.04 &lt; 0.05. We can confidently say the improvement is real and not random noise. This is a green light.</div>
+        </div>
+        <div class="dec-card green">
+          <div class="dec-title">✅ Economically meaningful</div>
+          <div class="dec-body">+600 extra completions per month. Even at modest average investment ticket sizes, this represents real, recurring revenue for Grip.</div>
+        </div>
+        <div class="dec-card amber">
+          <div class="dec-title">⚠️ Below 5pp MDE target</div>
+          <div class="dec-body">4pp &lt; 5pp. But the MDE was our input assumption — a floor, not a law. Being 1pp below doesn't negate the value of the improvement.</div>
+        </div>
+        <div class="dec-card amber">
+          <div class="dec-title">⚠️ Guardrail check required</div>
+          <div class="dec-body">Before shipping, we MUST verify the three guardrail metrics are healthy. If expansion rate or ticket rate looks bad, we iterate first.</div>
+        </div>
+      </div>
+      <div class="verdict">
+        <div class="verdict-label">⚖️ Final Verdict</div>
+        <div class="verdict-text"><strong>Conditional ship + iterate.</strong> Ship Variant B as the new default IF guardrail metrics show no harm. Do not kill the variant — that would throw away a statistically significant, economically material win. Simultaneously, design Variant C to push conversion above 5pp.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Regulatory risk -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">⚖️ The Regulatory Risk — Are users investing without reading the fine print?</div>
+    </div>
+    <div class="card-body">
+      <div class="callout danger" style="margin-bottom:.85rem;">
+        <div class="callout-icon">🚨</div>
+        <div class="callout-body"><strong>The colleague's concern:</strong> "Variant B users are investing without reading risk details — we may be creating uninformed investments, which is a regulatory risk (SEBI mandates risk disclosure)."</div>
+      </div>
+      <div class="g2">
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:.75rem;">📊 What the guardrail data would show</div>
+          <div class="chart-wrap ch200"><canvas id="expansionChart"></canvas></div>
+          <div style="font-size:11px;color:var(--text-soft);margin-top:8px;text-align:center">Hypothetical: if "View Details" expansion in Variant B dropped dramatically, it would confirm the risk</div>
+        </div>
+        <div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:.75rem;">🔍 What to check before shipping</div>
+          <div class="checklist">
+            <div class="check-item"><div class="check-dot" style="background:var(--red)"></div><div><strong>"View Details" expansion rate in Variant B</strong> — If &lt;20% of Variant B completers ever expanded details, the hypothesis is confirmed and we must not ship as-is.</div></div>
+            <div class="check-item"><div class="check-dot" style="background:var(--amber)"></div><div><strong>Time-on-screen for B completers</strong> — If median seconds on payment screen dropped sharply (e.g. 45s → 12s), users are rushing through without reading.</div></div>
+            <div class="check-item"><div class="check-dot" style="background:var(--blue)"></div><div><strong>Support tickets tagged "terms confusion"</strong> — A spike in "what is this?" or "when can I withdraw?" queries 7 days post-investment is direct evidence of uninformed decisions.</div></div>
+          </div>
+          <div class="callout warn" style="margin-top:.85rem;">
+            <div class="callout-icon">⚠️</div>
+            <div class="callout-body"><strong>If guardrails fail:</strong> Redesign Variant B to surface a mandatory 3-line risk summary inline (not hidden behind a tap) — preserving informed consent while still reducing information overload. This becomes Variant C.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════ VARIANT C ═══════════ -->
+<div class="section">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:var(--teal-light)">🚀</div>
+    <div>
+      <div class="section-label">Part B · Follow-up</div>
+      <div class="section-title">Variant C — The next experiment to push above 5pp</div>
+      <div class="section-sub">Threading the needle between simplicity and informed consent</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header" style="background:var(--teal-light);">
+      <div class="card-title" style="color:var(--teal-dark);">🅒 Variant C · Progressive Disclosure with Inline Risk Nudge</div>
+    </div>
+    <div class="card-body">
+      <div class="g3">
+        <div class="vc-block">
+          <div class="vc-lbl">💡 Hypothesis</div>
+          <div class="vc-val">Users aren't opposed to risk details — they're opposed to <em>information overload</em> at the moment of payment. A scannable 3-line risk card shown always (not hidden) reduces friction AND maintains informed consent.</div>
+        </div>
+        <div class="vc-block">
+          <div class="vc-lbl">🖥️ UI Change</div>
+          <div class="vc-val">Show: investment amount + expected return (like B). But instead of a "View Details" collapse, show an always-visible 3-line card: <strong>(a) Risk rating badge, (b) Lock-in period, (c) Tax in one line.</strong> Below: "Full prospectus →" (link, not CTA-blocking).</div>
+        </div>
+        <div class="vc-block">
+          <div class="vc-lbl">📏 Success Metrics</div>
+          <div class="vc-val">
+            <strong>Primary:</strong> Payment completion rate (target ≥52%, ideally ≥53%)<br><br>
+            <strong>Guardrails:</strong> "Full prospectus" click rate, support ticket rate, 30-day withdrawal rate — all must be ≥ Variant B levels.
+          </div>
+        </div>
+      </div>
+      <div class="callout success" style="margin-top:.75rem;">
+        <div class="callout-icon">🎯</div>
+        <div class="callout-body"><strong>Why this is better than B:</strong> Variant B hides information (regulatory risk). Variant C <em>curates</em> information — showing only the 3 things users need to know at point of payment, always visible, without the full overload. Best of both worlds: simpler AND compliant.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════ PART C: FUNNEL STRATEGY ═══════════ -->
+<div class="section">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:#FEF3C7">🗺️</div>
+    <div>
+      <div class="section-label">Part C · Broader Product Thinking</div>
+      <div class="section-title">Where else in the funnel can we apply "reduce cognitive load"?</div>
+      <div class="section-sub">If simplifying the payment screen works, the same principle applies upstream — show users what they need for the decision in front of them, not everything at once</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:1.25rem;">
+    <div class="card-header"><div class="card-title">🔑 The Core Insight from this A/B Test</div></div>
+    <div class="card-body">
+      <div class="callout info">
+        <div class="callout-icon">💡</div>
+        <div class="callout-body"><strong>Users who reach the payment screen have already decided to invest.</strong> They're past the education phase. Showing them a full investment summary again is optimising for the wrong goal — re-informing someone who's already committed. The same misalignment exists at other funnel stages: too much info for the stage the user is actually in.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1.25rem;">
+    <div class="card">
+      <div class="card-header"><div class="card-title">🏗️ The Full Funnel — Where Friction Lives</div></div>
+      <div class="card-body">
+        <div class="chart-wrap ch300"><canvas id="funnelChart"></canvas></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><div class="card-title">🎯 2 Other Funnel Stages to Simplify</div></div>
+      <div class="card-body">
+        <div class="fr-grid">
+          <div class="fr-card" style="border-left:4px solid var(--blue);">
+            <div class="fr-stage" style="color:var(--blue)">Stage 1 — Browse / Discovery</div>
+            <div class="fr-title">Simplify product listing cards</div>
+            <div class="fr-body"><strong>Problem:</strong> Each card shows 6–7 data points — yield, tenure, issuer, credit rating, risk label, liquidity, minimum amount — before the user has even expressed intent.<br><br><strong>Hypothesis:</strong> Reduce browse cards to just yield + tenure (+ risk badge). Defer everything else to the product detail page.<br><br><strong>Metric:</strong> Browse → product detail CTR.<br><strong>Guardrail:</strong> Product detail → payment entry rate.</div>
+          </div>
+          <div class="fr-card" style="border-left:4px solid var(--teal-dark);">
+            <div class="fr-stage" style="color:var(--teal-dark)">Stage 2 — KYC / Onboarding</div>
+            <div class="fr-title">Chunk the KYC form into a wizard</div>
+            <div class="fr-body"><strong>Problem:</strong> New users face a long KYC scroll — PAN, Aadhaar, bank details, nominee, risk profiling — all at once. This is the biggest upstream drop-off point.<br><br><strong>Hypothesis:</strong> A 4-step wizard (identity → bank → risk profile → review) with a progress indicator will reduce abandonment by making each step feel lightweight and the end feel near.<br><br><strong>Metric:</strong> KYC start → completion rate.<br><strong>Guardrail:</strong> Time to first investment post-KYC.</div>
+          </div>
+        </div>
+        <div class="callout info" style="margin-top:.75rem;">
+          <div class="callout-icon">🗝️</div>
+          <div class="callout-body"><strong>The golden rule:</strong> At each stage, only show the information needed for the decision the user is making <em>right now</em>. Browsing = "Is this interesting?" (yield + tenure). Committing = "How much will I earn on X rupees?" (amount + return). Everything else is friction.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Impact summary -->
+  <div style="background:linear-gradient(135deg,#0B1A42 0%,#12275C 100%);border-radius:14px;padding:1.75rem 2rem;">
+    <div style="font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);margin-bottom:.75rem;">Potential Combined Impact Across All 3 Stages</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;">
+      <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em;">KYC completion lift</div>
+        <div class="serif" style="font-size:28px;color:var(--teal)">+15%</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.45)">Estimated from step chunking</div>
+      </div>
+      <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em;">Browse → detail CTR lift</div>
+        <div class="serif" style="font-size:28px;color:var(--teal)">+10%</div>
+        <div style="font-size:11px;color:rgba(255,255,255,.45)">Estimated from card simplification</div>
+      </div>
+      <div style="background:rgba(0,201,167,.12);border:1px solid rgba(0,201,167,.3);border-radius:10px;padding:1rem;text-align:center;">
+        <div style="font-size:11px;color:rgba(255,255,255,.55);margin-bottom:4px;text-transform:uppercase;letter-spacing:.07em;">Payment conversion (Variant B)</div>
+        <div class="serif" style="font-size:28px;color:#fff">+4pp</div>
+        <div style="font-size:11px;color:var(--teal);font-weight:600">Already confirmed ✓</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<footer class="footer">
+  Made with ❤️ by the Product Analytics Team <strong>GRiP Invest</strong>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const navy='#12275C',teal='#00C9A7',tealD='#00A589',red='#E53935',amber='#F59E0B',green='#10B981',blue='#3B82F6',soft='#8A98B8';
+
+// Conversion bar chart
+new Chart(document.getElementById('convChart'),{type:'bar',data:{
+  labels:['Control A (Current)','Variant B (Simplified)','Target (MDE)'],
+  datasets:[{label:'Conversion Rate %',data:[48,52,53],
+    backgroundColor:['rgba(18,39,92,.75)','rgba(0,165,137,.8)','rgba(245,158,11,.6)'],
+    borderColor:[navy,tealD,amber],borderWidth:2,borderRadius:8,borderSkipped:false}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>v.raw+'%'}}},scales:{y:{min:44,max:56,ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+// Completion donut
+new Chart(document.getElementById('completionChart'),{type:'doughnut',data:{
+  labels:['Completed (Control A)','Dropped (Control A)','Completed (Variant B)','Dropped (Variant B)'],
+  datasets:[
+    {label:'Control A',data:[48,52],backgroundColor:['rgba(18,39,92,.8)','rgba(221,228,240,.4)'],borderWidth:2,borderColor:['#fff','#fff']},
+    {label:'Variant B',data:[52,48],backgroundColor:['rgba(0,165,137,.85)','rgba(221,228,240,.4)'],borderWidth:2,borderColor:['#fff','#fff']}
+  ]
+},options:{responsive:true,maintainAspectRatio:false,cutout:'40%',plugins:{legend:{position:'bottom',labels:{font:{size:11},boxWidth:12,padding:12}},tooltip:{callbacks:{label:v=>v.label+': '+v.raw+'%'}}}}});
+
+// MDE waterfall
+new Chart(document.getElementById('mdeChart'),{type:'bar',data:{
+  labels:['Baseline (Control)','Observed Lift','MDE Gap'],
+  datasets:[{data:[48,4,-1],backgroundColor:['rgba(18,39,92,.7)','rgba(0,165,137,.8)','rgba(229,57,53,.7)'],borderRadius:6,borderSkipped:false}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>v.raw>0?'+'+v.raw+'pp':v.raw+'pp'}}},scales:{y:{ticks:{callback:v=>v+'pp'},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+// Expansion rate donut
+new Chart(document.getElementById('expansionChart'),{type:'bar',data:{
+  labels:['Control A\n(view rate proxy)','Variant B\n(hypothetical low)','Variant C\n(target)'],
+  datasets:[{label:'% who engaged with full details',data:[78,22,65],
+    backgroundColor:['rgba(59,130,246,.75)','rgba(229,57,53,.75)','rgba(0,165,137,.8)'],
+    borderRadius:6,borderSkipped:false}]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>v.raw+'%'}}},scales:{y:{min:0,max:100,ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false}}}}});
+
+// Sample accumulation line
+const days=Array.from({length:15},(_,i)=>'Day '+(i+1));
+const aData=days.map((_,i)=>Math.min(250*(i+1),1564));
+const bData=days.map((_,i)=>Math.min(250*(i+1),1564));
+new Chart(document.getElementById('sampleChart'),{type:'line',data:{
+  labels:days,
+  datasets:[
+    {label:'Control A',data:aData,borderColor:navy,backgroundColor:'rgba(18,39,92,.08)',fill:true,tension:.4,pointRadius:0},
+    {label:'Variant B',data:bData.map(v=>v+Math.random()*20-10),borderColor:tealD,backgroundColor:'rgba(0,165,137,.08)',fill:true,tension:.4,pointRadius:0}
+  ]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:10},boxWidth:10,padding:8}}},scales:{y:{title:{display:true,text:'Users assigned',font:{size:11}},grid:{color:'rgba(0,0,0,.04)'}},x:{ticks:{maxTicksLimit:7},grid:{display:false}}}}});
+
+// Timeline bar
+new Chart(document.getElementById('timelineChart'),{type:'bar',data:{
+  labels:['Min. required','Recommended run'],
+  datasets:[{data:[6.3,14],backgroundColor:['rgba(245,158,11,.75)','rgba(0,165,137,.8)'],borderRadius:6,borderSkipped:false,label:'Days'}]
+},options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:v=>v.raw+' days'}}},scales:{x:{max:18,ticks:{callback:v=>v+'d'},grid:{color:'rgba(0,0,0,.04)'}},y:{grid:{display:false}}}}});
+
+// Funnel chart
+new Chart(document.getElementById('funnelChart'),{type:'bar',data:{
+  labels:['App open','Browse products','View product detail','KYC complete','Payment screen','Complete payment'],
+  datasets:[
+    {label:'Users (estimated)',data:[50000,22000,11000,9000,15000,7200],
+     backgroundColor:['rgba(59,130,246,.8)','rgba(59,130,246,.7)','rgba(245,158,11,.7)','rgba(229,57,53,.75)','rgba(245,158,11,.7)','rgba(0,165,137,.85)'],
+     borderRadius:6,borderSkipped:false}
+  ]
+},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>v>=1000?Math.round(v/1000)+'k':v},grid:{color:'rgba(0,0,0,.04)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+</script>
